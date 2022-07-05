@@ -12,6 +12,7 @@ services:
     image: postgres:14.1-alpine
     restart: always
     environment:
+      - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
