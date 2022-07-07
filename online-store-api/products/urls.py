@@ -1,6 +1,7 @@
-from django.conf.urls import url
-from products import views
+from django.urls import path
+from . import views
 
 urlpatterns = [
-	url(r'^category$', views.categoriesApi)
+ path('', views.test),
+ path('test/', views.fill_test)
 ]

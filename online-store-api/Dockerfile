@@ -7,6 +7,6 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install -r requirements.txt
 
-COPY . . 
+COPY . /app/
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]

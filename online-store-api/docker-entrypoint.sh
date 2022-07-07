@@ -1,16 +1,13 @@
 #!/bin/bash
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
+echo "Waiting for database to start..."
+while !</dev/tcp/db/5432; do
+  sleep 1
+done
+echo "done"
+echo
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL started"
-fi
-
+echo "PostgreSQL started"
 
 echo "Making database migrations..."
 python manage.py makemigrations
