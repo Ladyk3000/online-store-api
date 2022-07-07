@@ -2,13 +2,16 @@ from rest_framework import serializers
 from products.models import Category, Product, Offer
 
 class CategorySerializer(serializers.ModelSerializer):
-	model = Categories
-	fields = ('Category_Id','Category_Parent_Id','Category_Name')
+	class Meta:
+		model = Category
+		fields = ('id', 'category_name','parent_id')
 
 class ProductSerializer(serializers.ModelSerializer):
-	model = Products
-	fields = ('Product_Model','Product_Name','Product_Category_Id','Product_VendorCode','Product_Description')
+	class Meta:
+		model = Product
+		fields = ('product_name','product_description','product_category','product_brand','product_article')
 
 class OfferSerializer(serializers.ModelSerializer):
-	model = Offers
-	fields = ('Offer_Price','Offer_Id','Offer_Price_begin','Offer_size','Offer_model')	
+	class Meta:
+		model = Offer
+		fields = ('offer_product','offer_price','offer_price_begin','offer_available','offer_size')	

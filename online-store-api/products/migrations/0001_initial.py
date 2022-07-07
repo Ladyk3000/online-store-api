@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('category_name', models.CharField(max_length=200)),
+                ('parent_id', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
@@ -26,15 +27,19 @@ class Migration(migrations.Migration):
                 ('product_name', models.CharField(max_length=200)),
                 ('product_description', models.CharField(max_length=200)),
                 ('product_category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_category', to='products.category')),
+                ('product_brand', models.CharField(max_length=200)),
+                ('product_article', models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
             name='Offer',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('offer_description', models.CharField(max_length=200)),
+                ('offer_available', models.CharField(max_length=200)),
                 ('offer_price', models.IntegerField()),
+                ('offer_price_begin', models.IntegerField()),
                 ('offer_product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='offer_product', to='products.product')),
+                ('offer_size', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(

@@ -9,7 +9,7 @@ echo
 
 echo "PostgreSQL started"
 
-echo "Making database migrations..."
+echo "Making new database migrations..."
 python manage.py makemigrations
 echo "done"
 echo
