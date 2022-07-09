@@ -1,14 +1,16 @@
 from unicodedata import category
 from django.http import HttpResponse, JsonResponse
-from .models import Category, CategoryRelation, Product, Offer
+from .models import Category, Product, Offer
 from .serializers import CategorySerializer, ProductSerializer, OfferSerializer
 import xmltodict
-from rest_framework.generics import ListCreateAPIView, ListCreateAPIView
-from rest_framework import permissions
+from rest_framework.generics import ListCreateAPIView, ListAPIView
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
+
 
 PATH = "/app/media/test_catalog.xml"
 
-class CategoryAPIView(ListCreateAPIView):
+class CategoryAPIView(ListAPIView):
 
 	def post(self, request, id):
 		category = Category.objects.filter(id = id)
@@ -31,8 +33,18 @@ class CategoryAPIView(ListCreateAPIView):
 		return JsonResponse(response, safe = False, json_dumps_params={'ensure_ascii': False})
 
 
-class Fill_Database(ListCreateAPIView):
+def upload(request):
+	context = {}
+	if request.method == 'POST':
+		uploaded_file = request.FILES['document']
+		fs = FileSystemStorage()
+		name = fs.save(uploaded_file.name, uploaded_file)
+		context['url'] = fs.url(name)
+	return render(request, 'upload.html', context)
 
+
+class Fill_Database(ListCreateAPIView):
+	
 	def get(self, request):
 		with open(PATH, encoding='utf-8') as fd:
 			doc = xmltodict.parse(fd.read(), dict_constructor=dict)
@@ -68,3 +80,4 @@ class Fill_Database(ListCreateAPIView):
 			offer.save()
 
 		return HttpResponse(f"All data has been entered into the database go to http://127.0.0.1:8000/swagger")
+	
