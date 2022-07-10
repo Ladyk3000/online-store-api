@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product
-		fields = ('product_name','product_description','product_category','product_brand','product_article',
+		fields = ('product_name','product_description','product_photos','product_category','product_brand','product_article',
 				'product_color','product_vendor_color','product_upper_material','product_lining_material',
 				'product_sole_material','product_heel_height','product_sole_height','product_sex','product_type',
 				'product_season','product_sale_season','product_style','product_style_Region','product_manufacturer_Region',

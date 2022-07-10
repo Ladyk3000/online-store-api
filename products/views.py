@@ -37,7 +37,8 @@ class FileUploadView(ListCreateAPIView):
 			product = Product(
 				product_name = item['name'], 
 				product_description = item['description'], 
-				product_category_id = item['categoryId'], 
+				product_category_id = item['categoryId'],
+				product_photos = ', '.join(item['picture']),
 				product_brand = item['param'][0]['#text'],
 				product_article = item['param'][1]['#text'],
 				product_color = item['param'][4]['#text'],

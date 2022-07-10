@@ -12,6 +12,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=100)
     product_description = models.CharField(max_length=200)
     product_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='product_category')
+    product_photos = models.TextField()
     product_brand = models.CharField(max_length=200)
     product_article = models.CharField(max_length=200)
     product_color = models.CharField(max_length=20)
