@@ -1,8 +1,8 @@
 {% block content %}
-  <h2>Upload</h2>
+  <h2>Upload XML file</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="file" name="document">
+    <input type="file" name="xml_data">
     <button type="submit">Upload file</button>
   </form>
   {% if url %}

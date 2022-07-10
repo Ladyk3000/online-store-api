@@ -40,6 +40,7 @@ class Migration(migrations.Migration):
                 ('offer_price_begin', models.IntegerField()),
                 ('offer_product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='offer_product', to='products.product')),
                 ('offer_size', models.IntegerField()),
+                ('offer_RU_size', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
