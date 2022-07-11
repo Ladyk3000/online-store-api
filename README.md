@@ -7,7 +7,7 @@ Necessary:
 3. Create an API with two endpoints: POST /products - getting products by category, GET /product - getting a card for a specific product (including all offers).
 
 Also done:
-- connection swagger, autodocumentation;
+- connected autodocumentation swagger/redoc;
 - added endpoint for uploading the feed file to the server;
 - the project is built in docker.
 The format of the files sent by the server is JSON.
