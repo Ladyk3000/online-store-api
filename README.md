@@ -11,3 +11,25 @@ Also done:
 - added endpoint for uploading the feed file to the server;
 - the project is built in docker.
 The format of the files sent by the server is JSON.
+
+### Prerequisites
+
+This project relies on the [Docker](https://www.docker.com/) and the [Docker Compose](https://github.com/docker/compose). You should install them to build and run the project.
+
+The system uses [RabbitMQ](https://www.rabbitmq.com/) and [PostgreSQL](https://www.postgresql.org/) as message broker and RDBMS respectively. Docker containers forwards default ports for them, therefore you should make sure, that these services shutted down or you should map different ports in _docker-compose.yml_ file.
+
+### Build
+
+To build the project you need to run the build command:
+
+``` sh
+docker-compose build
+```
+
+### Run
+
+To run the project simply execute the following command:
+
+``` sh
+docker-compose up
+```
