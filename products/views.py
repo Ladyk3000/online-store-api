@@ -12,25 +12,27 @@ PATH = "/app/media/test_catalog.xml"
 
 
 class FileUploadView(ListCreateAPIView):
-	def get(self, request, format=None):
+	def get(self, request):
 		return render(request, 'upload.html')
 
-	def post(self, request, format=None):
+	def post(self, request):
 		uploaded_file = request.FILES['xml_data']
 		fs = FileSystemStorage()
 		fs.save(uploaded_file.name, uploaded_file)
 		self.upload_data()
-		return  HttpResponse("File uploaded")
-	
+		return HttpResponse("File uploaded")
+		
 	def upload_data(self):
 		with open(PATH, encoding='utf-8') as fd:
 			doc = xmltodict.parse(fd.read(), dict_constructor=dict)
 
 		for item in doc['yml_catalog']['shop']['categories']['category']:
 			try:
-				category = Category(category_name = item['#text'], id=item['@id'], parent_id=item['@parentId'])
+				category = Category(category_name=item['#text'], 
+									id=item['@id'], parent_id=item['@parentId'])
 			except KeyError:
-				category = Category(category_name = item['#text'], id=item['@id'], parent_id='000000001')
+				category = Category(category_name=item['#text'], 
+									id=item['@id'], parent_id='000000001')
 			category.save()
 
 		for item in doc['yml_catalog']['shop']['offers']['offer']:
@@ -67,7 +69,7 @@ class FileUploadView(ListCreateAPIView):
 			except KeyError:
 				product.product_upper_material = 'none'
 				product.product_lining_material = 'none'
-				product.product_sole_material =  'none'
+				product.product_sole_material = 'none'
 				product.product_heel_height =  '0'
 				product.product_sole_height =  '0'
 				product.product_insole_material = 'none'
@@ -94,7 +96,6 @@ class FileUploadView(ListCreateAPIView):
 
 	
 class CategoryAPIView(ListAPIView):
-
 	def post(self, request, id):
 		category = Category.objects.filter(id = id)
 		categoryserializer = CategorySerializer(category, many = True)
@@ -103,11 +104,10 @@ class CategoryAPIView(ListAPIView):
 		productserializer = ProductSerializer(product, many=True)
 
 		response = {'category': categoryserializer.data, 'products': productserializer.data}
-		return JsonResponse(response, safe = False, json_dumps_params={'ensure_ascii': False})
+		return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
 
 class ProductAPIView(ListAPIView):
-
 	def get(self, request, id):	
 		product = Product.objects.filter(id = id)
 		productserializer = ProductSerializer(product, many=True)
@@ -115,4 +115,5 @@ class ProductAPIView(ListAPIView):
 		offer = Offer.objects.filter(offer_product_id = id)
 		offerserializer = OfferSerializer(offer, many = True)
 		response = {'product': productserializer.data, 'offers': offerserializer.data}
-		return JsonResponse(response, safe = False, json_dumps_params={'ensure_ascii': False})
+		return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
+		
